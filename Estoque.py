@@ -1,9 +1,8 @@
 # 3. Estoque de Produtos
-# Dicionário com nomes dos produtos e quantidades.
-#   Permita:
-#   Adicionar novos produtos.
-#   Atualizar a quantidade de um produto.
-#   Mostrar todos os produtos com seus estoques.
+#       Adicionar novos produtos.
+#       Atualizar a quantidade de um produto.
+#       Mostrar todos os produtos com seus estoques.
+#       Finalizar Programa
 
 from time import sleep
 
@@ -34,20 +33,15 @@ def att_product():
     name = str(input('Produto que deseja atualizar: ')).strip().capitalize()
     
     #Verifica se o produto não esta no estoque 
-    if not name in stock:
-        print(f'Item {name}, Não encotrado')
-        #Se não estiver entra no while
-        while not name in stock:
-            name = str(input('\nTente outro produto: ')).strip().capitalize()
-        amount = int(input('Quantia do produto: '))
-        stock[name] = amount
-    else:
-        amount = int(input('Quantia do produto: '))
-        stock[name] = amount
+    while not name in stock:
+        print(f'Item {name}, Não encontrado')
+        name = str(input('\nTente outro produto: ')).strip().capitalize()
+
+    amount = get_amount()
+    stock[name] = amount
     
 
 def show_product():
-
     #Imprime o cabeçalho
     print('ESTOQUE'.center(35))
     print('-' * 35)
@@ -59,6 +53,18 @@ def show_product():
 
 
 def get_amount():
+    """
+    Solicita e retorna a quantidade de um produto como um número inteiro.
+
+    Utiliza um loop para garantir que o valor inserido seja um número inteiro válido.
+    - Caso o usuário insira um valor inválido (não inteiro), exibe uma mensagem de erro e solicita novamente.
+
+    Retorna:
+        int: A quantidade informada pelo usuário.
+
+    Exemplo de uso:
+        quantidade = get_amount()
+    """
     while True:
         try:
             return int(input('Quantia do produto: '))
@@ -112,10 +118,3 @@ while True:
         break
     else:
         print("\nOpção inválida. Por favor, escolha uma opção entre 1 e 4.")
-
-
-# 7. Criar loop para aceitar somente entras certas
-# 8. Tratamento de Erro
-
-
-#print(stock)
