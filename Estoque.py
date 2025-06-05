@@ -5,6 +5,7 @@
 #       Finalizar Programa
 
 from time import sleep
+from arquiLib import *
 
 # Passo-a-Passo
 
