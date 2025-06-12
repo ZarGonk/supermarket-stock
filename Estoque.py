@@ -1,15 +1,10 @@
-# 3. Estoque de Produtos
-#       Adicionar novos produtos.
-#       Atualizar a quantidade de um produto.
-#       Mostrar todos os produtos com seus estoques.
-#       Finalizar Programa
-
 from time import sleep
 from arquiLib import *
 
 # Passo-a-Passo
 
-# 1. Criar um dicionario = Estoque
+# 1. Criar um Estoque
+stocks = 'stock.txt'
 stock = {}
 
 def add_product():
@@ -80,42 +75,57 @@ def menu():
     print('~'*40)
 
 #main
-while True:
-    menu()
-    while True:  
-        try:
-            option = int(input('Qual Opção deseja: '))
-            if 1 <= option <= 4:   
+if file_exists(stocks):
+    while True:
+        menu()
+        while True:  
+            try:
+                option = int(input('Qual Opção deseja: '))
+                if 1 <= option <= 4:   
+                    break
+            except ValueError:
+                print("Entrada inválida. Por favor, insira um número inteiro.")
+                continue
+            if 1 <= option <= 4:
                 break
-        except ValueError:
-            print("Entrada inválida. Por favor, insira um número inteiro.")
-            continue
-        if 1 <= option <= 4:
+            else:
+                print("\nOpção inválida. Por favor, escolha uma opção entre 1 e 4.")
+        print()
+
+        # 3. Função Add novos produtos
+        if option == 1:
+            add_product()
+
+        # 4. Atualizar a Quantidade de um Produtos
+        elif option == 2:
+            att_product()
+            
+        # 5. Mostrar Produtos dos estoques
+        elif option == 3:
+            show_product()
+
+        # 6. Finalizar o programa
+        elif option == 4:
+            print('Saindo',end='')
+            for i in range(3):
+                sleep(0.5)
+                print('.',end='', flush=True)
+            sleep(0.5)
+            print('\nPrograma Encerrado')
             break
         else:
             print("\nOpção inválida. Por favor, escolha uma opção entre 1 e 4.")
-    print()
-
-    # 3. Função Add novos produtos
-    if option == 1:
-        add_product()
-
-    # 4. Atualizar a Quantidade de um Produtos
-    elif option == 2:
-        att_product()
-        
-    # 5. Mostrar Produtos dos estoques
-    elif option == 3:
-        show_product()
-
-    # 6. Finalizar o programa
-    elif option == 4:
-        print('Saindo',end='')
-        for i in range(3):
-            sleep(0.5)
-            print('.',end='', flush=True)
-        sleep(0.5)
-        print('\nPrograma Encerrado')
-        break
-    else:
-        print("\nOpção inválida. Por favor, escolha uma opção entre 1 e 4.")
+else: 
+    print('Banco de dados não encontrado\n')
+    while True:
+        option = str(input('Deseja Criar um armazenamento?[S/N] ')).strip().upper()
+        if option and option[0] in 'SN':
+            if option[0] == 'S':
+                name = str(input('Digite: Nome banco de dados: '))
+                create_file(name)
+            else:
+                print('Adeus')
+            break
+        else:
+            print('Opção Invalida. Digite apenas S ou N.')
+            print()

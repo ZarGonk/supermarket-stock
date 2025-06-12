@@ -1,0 +1,6 @@
+Banana
+Maça
+Faca
+Garfo
+Tenis
+...
