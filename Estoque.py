@@ -11,6 +11,7 @@ def add_product():
     name = str(input('Digite nome do Produto: ')).strip().capitalize()
     
     #Verifica se o produto esta no estoque
+    
     if name in stock:
         print(f'Item {name}, ja foi adicionado ao estoque')
         #Se tiver entra no while
