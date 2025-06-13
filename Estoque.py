@@ -31,13 +31,19 @@ def add_product():
 def att_product():
     name = str(input('Produto que deseja atualizar: ')).strip().capitalize()
     
-    #Verifica se o produto não esta no estoque 
-    while not name in stock:
-        print(f'Item {name}, Não encontrado')
-        name = str(input('\nTente outro produto: ')).strip().capitalize()
+    with open(stock, 'r', encoding='utf-8') as sc:
+        data = sc.readlines()
 
-    amount = get_amount()
-    stock[name] = amount
+    # Verifica se o produto já está no estoque
+    product_exisits = any(name in line for line in data)
+
+    # Se o produto não existir 
+    if product_exisits == False:
+        print(f'Item {name}, Não encontrado')
+    else:
+        amount = get_amount()
+        with open(stock, )
+        stock[name] = amount
     
 
 def show_product():
