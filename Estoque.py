@@ -4,27 +4,29 @@ from arquiLib import *
 # Passo-a-Passo
 
 # 1. Criar um Estoque
-stocks = 'stock.txt'
-stock = {}
+stock = 'stock.txt'
 
 def add_product():
     name = str(input('Digite nome do Produto: ')).strip().capitalize()
     
-    #Verifica se o produto esta no estoque
+    # Lê os dados do estoque
+    with open(stock, 'r', encoding='utf-8') as sc:
+        data = sc.readlines()
     
-    if name in stock:
-        print(f'Item {name}, ja foi adicionado ao estoque')
-        #Se tiver entra no while
-        while name in stock:
-            name = str(input('\nTente outro produto: ')).strip().capitalize()
-        
-        amount = get_amount()
-        stock[name] = amount
+    # Verifica se o produto já está no estoque
+    product_exists = any(name in line for line in data)
 
-    else:
-        amount = get_amount()
-        stock[name] = amount
+    # Se já existe, solicita novo nome até ser único
+    while product_exists:
+        print(f'Item "{name}" já foi adicionado ao estoque')
+        name = str(input('\nTente outro produto: ')).strip().capitalize()
+        product_exists = any(name in line for line in data)
 
+    # Solicita quantidade e grava no arquivo
+    amount = get_amount()
+    with open(stock,'a', encoding='utf-8') as sc:
+        sc.write(f'{name}, {amount}\n')  
+    print(f'Produto "{name}" adicionado com sucesso!')    
 
 def att_product():
     name = str(input('Produto que deseja atualizar: ')).strip().capitalize()
@@ -76,7 +78,7 @@ def menu():
     print('~'*40)
 
 #main
-if file_exists(stocks):
+if file_exists(stock):
     while True:
         menu()
         while True:  
