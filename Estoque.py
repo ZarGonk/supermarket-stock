@@ -4,7 +4,7 @@ from arquiLib import *
 # Passo-a-Passo
 
 # 1. Criar um Estoque
-stock = 'stock.txt'
+stock = 'stock'
 
 def add_product():
     name = str(input('Digite nome do Produto: ')).strip().capitalize()
