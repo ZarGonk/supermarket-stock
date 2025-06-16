@@ -31,22 +31,45 @@ def add_product():
 def att_product():
     name = str(input('Produto que deseja atualizar: ')).strip().capitalize()
     
-    with open(stock, 'r', encoding='utf-8') as sc:
-        data = sc.readlines()
+    updated_data = [] 
+    product_found = False
 
-    # Verifica se o produto já está no estoque
-    product_exisits = any(name in line for line in data)
+    try:
+        with open(stock, 'r', encoding='utf-8') as sc:
+            data = sc.readlines()
 
-    # Se o produto não existir 
-    if product_exisits == False:
-        print(f'Item {name}, Não encontrado')
-    else:
-        amount = get_amount()
-        with open(stock, )
-        stock[name] = amount
+        for line in data:
+
+            parts = [p.strip() for p in line.strip().split(',')]
+            
+            # Verifica se a linha tem o formato esperado (nome, quantidade)
+            if len(parts) == 2:
+                product_name = parts[0].capitalize()
+                
+                if product_name == name:
+                    print(f'Produto "{name}" encontrado. Qual a nova quantia?')
+                    amount = get_amount() 
+                    updated_data.append(f'{name}, {amount}\n') # Converte para string e adiciona \n
+                    product_found = True
+                else:
+                    updated_data.append(line) # Adiciona a linha original se não for o produto procurado
+            else:
+                updated_data.append(line) # Adiciona linhas que não seguem o formato esperado (para não perdê-las)
+
+        if not product_found:
+            print(f'Item "{name}" não encontrado no estoque.')
+        else:
+            with open(stock, 'w', encoding='utf-8') as sc:
+                sc.writelines(updated_data) # Escreve todas as linhas de volta
+            print(f'Produto "{name}" atualizado com sucesso!')
+
+    except FileNotFoundError:
+        print(f"Erro: O arquivo de estoque '{stock}' não foi encontrado. Por favor, crie-o primeiro.")
+    except Exception as erro:
+        print(f"Ocorreu um erro ao atualizar o produto: {erro}")
     
 
-def show_product():
+'''def show_product():
     #Imprime o cabeçalho
     print('ESTOQUE'.center(35))
     print('-' * 35)
@@ -54,7 +77,7 @@ def show_product():
     print('|' + '-' * 33 + '|')
     for item, value in stock.items():
         print(f'| {item:<14} | {value:>8}       |')
-    print('-'*35)
+    print('-'*35)'''
 
 
 def get_amount():
@@ -111,7 +134,7 @@ if file_exists(stock):
             
         # 5. Mostrar Produtos dos estoques
         elif option == 3:
-            show_product()
+            '''show_product()'''
 
         # 6. Finalizar o programa
         elif option == 4:
