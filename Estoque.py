@@ -75,6 +75,8 @@ def att_product():
     print('-' * 35)
     print('| {:^14} | {:^14} |'.format('Produtos', 'Quantia'))
     print('|' + '-' * 33 + '|')
+
+    
     for item, value in stock.items():
         print(f'| {item:<14} | {value:>8}       |')
     print('-'*35)'''
