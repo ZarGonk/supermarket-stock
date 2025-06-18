@@ -15,3 +15,5 @@ for itens in dados:
         while encontre in itens:
             encontre = str(input('\nTente outro produto: ')).strip().capitalize()
 print('fim')
+
+print('meu ovo!')
