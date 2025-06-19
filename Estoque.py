@@ -69,17 +69,27 @@ def att_product():
         print(f"Ocorreu um erro ao atualizar o produto: {erro}")
     
 
-'''def show_product():
+def show_product():
     #Imprime o cabeçalho
     print('ESTOQUE'.center(35))
     print('-' * 35)
     print('| {:^14} | {:^14} |'.format('Produtos', 'Quantia'))
     print('|' + '-' * 33 + '|')
 
-    
-    for item, value in stock.items():
-        print(f'| {item:<14} | {value:>8}       |')
-    print('-'*35)'''
+    if file_exists(stock) == True:
+        with open(stock, 'r', encoding='utf-8') as sc:
+            data = sc.readlines()
+            for item in data:
+                print(f'|  {item.strip().split(',')[0]:<14}| {item.strip().split(',')[1]:>8}       |')
+        print('-' * 35)
+        print('')
+
+
+        '''for item, value in stock.items():
+            print(f'| {item:<14} | {value:>8}       |')
+        print('-'*35)'''
+    else:
+        print(file_exists)
 
 
 def get_amount():
@@ -136,7 +146,7 @@ if file_exists(stock):
             
         # 5. Mostrar Produtos dos estoques
         elif option == 3:
-            '''show_product()'''
+            show_product()
 
         # 6. Finalizar o programa
         elif option == 4:
